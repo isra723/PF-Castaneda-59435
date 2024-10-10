@@ -1,28 +1,21 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
+import { User } from './models';
 
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
 
+const USER_DATA: User[] = [
+  {
+    id: "salkdu",
+    firstName: "jose",
+    lastName: "israel",
+    email: "israel@gmail.com",
+    datecreated: new Date
+  },
+  
+]
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -32,21 +25,34 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 export class UsersComponent {
 
-  displayedColumns: string[] = ['id', 'name', 'date', 'actions'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['id', 'name', 'email' ,'date', 'actions'];
+  dataSource = USER_DATA;
 
+  usuario = {
+    nombre: 'Israel', 
+    apellido: 'Piña'
+  }
 
   constructor(private matDialog: MatDialog){
 
   }
 
-  openModal(): void{
-    this.matDialog.open(UserDialogComponent).afterClosed().subscribe({
+
+  deleteUser(id: string){
+    this.dataSource = this.dataSource.filter((user) => user.id !== id)
+  }
+
+  openModal(editingUser?: User): void{
+    this.matDialog.open(UserDialogComponent, {
+      data: {
+        editingUser
+      }
+  }).afterClosed().subscribe({
       next: (result) => {
         console.log("Recibido", result)
 
         if(!!result){
-          this.dataSource = [...this.dataSource , {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'}]
+          this.dataSource = [...this.dataSource, result]
         }
       }
     })

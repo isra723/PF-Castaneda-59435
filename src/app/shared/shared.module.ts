@@ -9,12 +9,17 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
+import { FullNamePipe } from './pipes/full-name.pipe';
+import { HighlightDirective } from './directives/highlight.directive';
 
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    FullNamePipe,
+    HighlightDirective
+  ],
   imports: [
     CommonModule
   ],
@@ -28,6 +33,8 @@ import { MatTableModule } from '@angular/material/table';
     MatDialogModule,
     ReactiveFormsModule,
     MatTableModule,
+    FullNamePipe,
+    HighlightDirective
   ]
 })
 export class SharedModule { }
