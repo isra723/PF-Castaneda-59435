@@ -45,8 +45,8 @@ userForm: FormGroup
     }else{
       this.matDialogRef.close({
         ...this.userForm.value,
-        id: generateRandomString(4),
-        datecreated: new Date()
+        id: this.data?.editingUser ? this.data?.editingUser.id :generateRandomString(4),
+        datecreated: this.data?.editingUser ? this.data?.editingUser.datecreated : new Date()
       })
     }
     

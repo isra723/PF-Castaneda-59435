@@ -52,7 +52,11 @@ export class UsersComponent {
         console.log("Recibido", result)
 
         if(!!result){
-          this.dataSource = [...this.dataSource, result]
+          if(editingUser){
+            this.dataSource = this.dataSource.map((user) => user.id === editingUser.id ? {...user, ...result} : user)
+          }else{
+            this.dataSource = [...this.dataSource, result]
+          }
         }
       }
     })
