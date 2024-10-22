@@ -1,29 +1,43 @@
-<mat-drawer-container class="example-container" autosize>
-    <mat-drawer #drawer class="example-sidenav" mode="side">
-        <p>Auto-resizing sidenav</p>
-        @if (showFiller) {
-        <p>Lorem, ipsum dolor sit amet consectetur.</p>
-        }
-        <button (click)="showFiller = !showFiller" mat-raised-button>
-            Toggle extra text
-        </button>
+<mat-drawer-container class="example-container" autosize >
+    
+    <mat-drawer #drawer class="example-sidenav col-1 d-flex flex-column align-items-start w-40 p-0" mode="side">
+        <div class="container mt-6 p-0 w-50">
+            <ul class="list-group p-0">
+                <li class="list-group-item">
+                    <button (click)="showFiller = !showFiller" mat-button class="w-100">
+                        Usuarios
+                    </button>
+                </li>
+                <li class="list-group-item">
+                    <button (click)="showFiller = !showFiller" mat-button class="w-100">
+                        Clases
+                    </button>
+                </li>
+                <li class="list-group-item">
+                    <button (click)="showFiller" mat-button class="w-100">
+                        Cursos
+                    </button>
+                </li>
+            </ul> 
+
+
+        </div>
     </mat-drawer>
-
-
 
 
     <div class="example-sidenav-content">
         <mat-toolbar>
             <button class="buttonDrawer" type="button" mat-button (click)="drawer.toggle()">
-                <mat-icon class="iconMenu" aria-hidden="false" aria-label="Example home icon" fontIcon="menu"></mat-icon>
+                <mat-icon class="iconMenu" aria-hidden="false" aria-label="Example home icon"
+                    fontIcon="menu"></mat-icon>
             </button>
             <span>Menú</span>
         </mat-toolbar>
-        
+
         <app-users></app-users>
     </div>
 
-   
+
 
 
 </mat-drawer-container>

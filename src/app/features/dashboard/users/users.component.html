@@ -1,7 +1,9 @@
-<h1>Lista de alumnos</h1>
 
+<div class="container">
+  <h1>Lista de alumnos</h1>
+</div>
 
-<div (click)="openModal()" class="container text-center">
+<div (click)="openModal()" class="container text-center btnCreate">
     <button class="" mat-flat-button> <mat-icon>add</mat-icon> Crear alumno </button>
 </div>
 
@@ -42,6 +44,4 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-
-
 

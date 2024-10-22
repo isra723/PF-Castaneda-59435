@@ -3,14 +3,14 @@
   </h1>
   
   <div mat-dialog-content>
-    <form [formGroup]="userForm">
+    <form [formGroup]="courseForm">
       <div class="row">
         <div class="col-6">
           <mat-form-field class="example-form-field w-100">
             <mat-label>Nombre</mat-label>
             <input formControlName="firstName" matInput type="text" maxlength="15"/>
             <mat-error>
-              @if(userForm.get('firstName')?.hasError('required')) { Este campo es
+              @if(courseForm.get('firstName')?.hasError('required')) { Este campo es
               requerido }
             </mat-error>
           </mat-form-field>
@@ -20,7 +20,7 @@
             <mat-label>Apellido</mat-label>
             <input formControlName="lastName" matInput type="text" maxlength="15"/>
             <mat-error>
-              @if(userForm.get('lastName')?.hasError('required')) { Este campo es
+              @if(courseForm.get('lastName')?.hasError('required')) { Este campo es
               requerido } 
             </mat-error>
           </mat-form-field>
@@ -30,7 +30,7 @@
             <mat-label>Email</mat-label>
             <input formControlName="email" matInput type="email" email="true"/>
             <mat-error>
-              @if(userForm.get('email')?.hasError('required')) { Este campo es
+              @if(courseForm.get('email')?.hasError('required')) { Este campo es
               requerido } @else { Coloca un email valido }
             </mat-error>
           </mat-form-field>

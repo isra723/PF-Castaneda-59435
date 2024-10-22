@@ -7,6 +7,7 @@ import { SharedModule } from '../../../shared/shared.module';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
 
 
+
 @NgModule({
   declarations: [
     UsersComponent,
@@ -15,7 +16,7 @@ import { UserDialogComponent } from './user-dialog/user-dialog.component';
   imports: [
     CommonModule,
     UsersRoutingModule,
-    SharedModule
+    SharedModule,
   ],
   exports: [
     UsersComponent,

@@ -22,8 +22,6 @@ userForm: FormGroup
     private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) private data: UserDialogData
   ){
-
-
     this.userForm = this.formBuilder.group({
       firstName: [null, [Validators.required]],
       lastName: [null, [Validators.required]],
