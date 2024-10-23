@@ -4,18 +4,28 @@
         <div class="container mt-6 p-0 w-50">
             <ul class="list-group p-0">
                 <li class="list-group-item">
-                    <button (click)="showFiller = !showFiller" mat-button class="w-100">
+                    <button routerLink="home" mat-button class="w-100">
+                        Inicio
+                    </button>
+                </li>
+                <li class="list-group-item">
+                    <button routerLink="users" mat-button class="w-100">
                         Usuarios
                     </button>
                 </li>
                 <li class="list-group-item">
-                    <button (click)="showFiller = !showFiller" mat-button class="w-100">
+                    <button routerLink="clases" mat-button class="w-100">
                         Clases
                     </button>
                 </li>
                 <li class="list-group-item">
-                    <button (click)="showFiller" mat-button class="w-100">
+                    <button routerLink="cursos" mat-button class="w-100">
                         Cursos
+                    </button>
+                </li>
+                <li class="list-group-item">
+                    <button (click)='logOut()' mat-button class="w-100">
+                        Cerrar sesion
                     </button>
                 </li>
             </ul> 
@@ -34,7 +44,7 @@
             <span>Menú</span>
         </mat-toolbar>
 
-        <app-users></app-users>
+        <router-outlet></router-outlet>
     </div>
 
 

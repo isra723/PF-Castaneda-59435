@@ -1,21 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
 import { User } from './models';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UsersService } from '../../../core/services/users.service';
 
 
-
-
-const USER_DATA: User[] = [
-  {
-    id: "salkdu",
-    firstName: "jose",
-    lastName: "israel",
-    email: "israel@gmail.com",
-    datecreated: new Date
-  },
-  
-]
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -23,38 +13,63 @@ const USER_DATA: User[] = [
 })
 
 
-export class UsersComponent {
+export class UsersComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'email' ,'date', 'actions'];
-  dataSource = USER_DATA;
+  displayedColumns: string[] = ['id', 'name', 'email', 'date', 'actions'];
+  dataSource: User[] = []
 
   usuario = {
-    nombre: 'Israel', 
+    nombre: 'Israel',
     apellido: 'Piña'
   }
 
-  constructor(private matDialog: MatDialog){
+  constructor(
+    private usersService: UsersService,
+    private matDialog: MatDialog,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+  ) {
 
   }
+  ngOnInit(): void {
+    this.loadUsers();
+  }
 
+  loadUsers(): void {
+    this.usersService.getUsers().subscribe({
+      next: (users) => {
+        this.dataSource = users;
+      },
+      // error: () => {
+      //   this.isLoading = false;
+      // },
+      // complete: () => {
+      //   this.isLoading = false;
+      // },
+    })
+}
 
-  deleteUser(id: string){
+  goToDetail(id: string): void {
+    this.router.navigate([id, 'detail'], { relativeTo: this.activatedRoute })
+  }
+
+  deleteUser(id: string) {
     this.dataSource = this.dataSource.filter((user) => user.id !== id)
   }
 
-  openModal(editingUser?: User): void{
+  openModal(editingUser?: User): void {
     this.matDialog.open(UserDialogComponent, {
       data: {
         editingUser
       }
-  }).afterClosed().subscribe({
+    }).afterClosed().subscribe({
       next: (result) => {
         console.log("Recibido", result)
 
-        if(!!result){
-          if(editingUser){
-            this.dataSource = this.dataSource.map((user) => user.id === editingUser.id ? {...user, ...result} : user)
-          }else{
+        if (!!result) {
+          if (editingUser) {
+            this.dataSource = this.dataSource.map((user) => user.id === editingUser.id ? { ...user, ...result } : user)
+          } else {
             this.dataSource = [...this.dataSource, result]
           }
         }

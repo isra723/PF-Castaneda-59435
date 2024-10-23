@@ -12,9 +12,6 @@ import { MatTableModule } from '@angular/material/table';
 import { FullNamePipe } from './pipes/full-name.pipe';
 import { HighlightDirective } from './directives/highlight.directive';
 
-
-
-
 @NgModule({
   declarations: [
     FullNamePipe,
