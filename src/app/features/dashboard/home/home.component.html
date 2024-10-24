@@ -1,1 +1,24 @@
-<p>home works!</p>
+
+
+<div class="div-card">
+    <h1 mat-dialog-title>
+        Inicio
+    </h1>
+    <mat-card appearance="outlined">
+        <mat-card-header>
+            <mat-card-title> Administración de alumnos</mat-card-title>
+            <mat-card-subtitle>Administración de clases y cursos</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions>
+            <button (click)="toggleLabel()" mat-button>Detalles</button>
+            <h4 *ngIf="mostrar" >José Israel Casatñeda PIña, 59435</h4>
+        </mat-card-actions>
+    </mat-card>
+    <br>
+    <!-- <mat-card appearance="outlined">
+        <mat-card-header>
+            <mat-card-title>Poodle</mat-card-title>
+            <mat-card-subtitle>Non-sporting group</mat-card-subtitle>
+        </mat-card-header>
+    </mat-card> -->
+</div>

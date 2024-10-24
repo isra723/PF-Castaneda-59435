@@ -18,11 +18,6 @@ export class UsersComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'email', 'date', 'actions'];
   dataSource: User[] = []
 
-  usuario = {
-    nombre: 'Israel',
-    apellido: 'Piña'
-  }
-
   constructor(
     private usersService: UsersService,
     private matDialog: MatDialog,
@@ -40,12 +35,6 @@ export class UsersComponent implements OnInit {
       next: (users) => {
         this.dataSource = users;
       },
-      // error: () => {
-      //   this.isLoading = false;
-      // },
-      // complete: () => {
-      //   this.isLoading = false;
-      // },
     })
 }
 
@@ -64,8 +53,6 @@ export class UsersComponent implements OnInit {
       }
     }).afterClosed().subscribe({
       next: (result) => {
-        console.log("Recibido", result)
-
         if (!!result) {
           if (editingUser) {
             this.dataSource = this.dataSource.map((user) => user.id === editingUser.id ? { ...user, ...result } : user)

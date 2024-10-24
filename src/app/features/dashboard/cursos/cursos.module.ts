@@ -3,23 +3,19 @@ import { CommonModule } from '@angular/common';
 
 import { CursosRoutingModule } from './cursos-routing.module';
 import { CursosComponent } from './cursos.component';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatTableModule } from '@angular/material/table';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { SharedModule } from '../../../shared/shared.module';
+import { CursoDialogComponent } from './curso-dialog/curso-dialog.component';
 
 
 @NgModule({
   declarations: [
     CursosComponent,
+    CursoDialogComponent,
   ],
   imports: [
     CommonModule,
     CursosRoutingModule,
-    MatIconModule,
-    MatDialogModule,
-    MatTableModule,
-    MatFormFieldModule,
+    SharedModule
   ],
   exports: [
     CursosComponent,

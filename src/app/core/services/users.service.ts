@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from '../../features/dashboard/users/models';
-import { delay, map, Observable, of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { generateRandomString } from '../../shared/utils';
 
 let DATABASE: User[] = [
@@ -28,12 +28,10 @@ export class UsersService {
 
   getUsers(): Observable<User[]> {
     return new Observable((observer) => {
-      // ACA HAY UN CAMBIO 1
       setInterval(() => {
-        // observer.error('Error al cargar los datos');
         observer.next(DATABASE);
         observer.complete();
-      }, 1);
+      });
     });
   }
 
