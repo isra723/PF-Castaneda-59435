@@ -1,6 +1,6 @@
 export interface Course{
     id: string,
-    courseName: string,
+    name: string,
     datecreated: Date,
     token: string,
 }

@@ -11,6 +11,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { FullNamePipe } from './pipes/full-name.pipe';
 import { HighlightDirective } from './directives/highlight.directive';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { HighlightDirective } from './directives/highlight.directive';
     ReactiveFormsModule,
     MatTableModule,
     FullNamePipe,
-    HighlightDirective
+    HighlightDirective,
+    MatProgressBarModule,
+    MatChipsModule
   ]
 })
 export class SharedModule { }

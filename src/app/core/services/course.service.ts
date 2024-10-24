@@ -7,10 +7,16 @@ import { map, Observable, of } from "rxjs";
 let DATABASE: Course[] = [
     {
         id: 'fakjshdf',
-        courseName: 'Angular',
+        name: 'Angular',
         datecreated: new Date(),
         token: generateRandomString(20)
-    }
+    },
+    {
+        id: 'aslkdfh',
+        name: 'JavaScript',
+        datecreated: new Date(),
+        token: generateRandomString(20)
+    },
 ]
 
 @Injectable({
@@ -22,10 +28,10 @@ export class CourseService {
     }
 
     getById(id: string):Observable<Course | undefined>{
-        return this.getUsers().pipe(map((courses) => courses.find((c) => c.id === id)))
+        return this.getCourses().pipe(map((courses) => courses.find((c) => c.id === id)))
     }
 
-    getUsers(): Observable <Course[]>{
+    getCourses(): Observable <Course[]>{
         return new Observable((observer) => {
             setInterval(() => {
                 observer.next(DATABASE)

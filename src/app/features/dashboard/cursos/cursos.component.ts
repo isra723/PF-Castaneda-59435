@@ -27,7 +27,7 @@ export class CursosComponent implements OnInit{
   }
 
   loadCourse(): void{
-    this.courseService.getUsers().subscribe({
+    this.courseService.getCourses().subscribe({
       next: (course) => {
         this.dataSource = course
       },
@@ -49,7 +49,7 @@ export class CursosComponent implements OnInit{
       }
     }).afterClosed().subscribe({
       next: (result) => {
-        console.log("Recibido", result)
+        console.log("Recibido", this.dataSource)
         if(!!result){
           if(editingCourse){
             this.dataSource = this.dataSource.map((course) => course.id === editingCourse.id ? {...course, ...result} : course)
