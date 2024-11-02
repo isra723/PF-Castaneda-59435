@@ -1,0 +1,21 @@
+<div class="m-5">
+    <form class="row justify-content-center" action="" [formGroup]="claseForm" >
+        <mat-form-field class="col-md-4">
+            <mat-label>Nombre</mat-label>
+            <input formControlName="name" type="text" matInput>
+        </mat-form-field>
+        <mat-form-field class="col-md-4">
+            <mat-label>Horario</mat-label>
+            <input formControlName="horario" type="text" matInput>
+        </mat-form-field>
+        <mat-form-field class="col-md-4">
+            <mat-label>Categoria</mat-label>
+            <mat-select formControlName="categoryId">
+                <mat-option [value]="course.name" *ngFor="let course of cursos$ | async">
+                    {{course.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button type="submit" mat-flat-button class="col-3" (click)="onSave()">Guardar</button>
+    </form>
+</div>

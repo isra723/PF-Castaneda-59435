@@ -1,0 +1,20 @@
+{
+  "alumnos": [
+    {
+      "id": "ae0c",
+      "firstName": "Israel",
+      "lastName": "Pina",
+      "email": "israel@gmail.com",
+      "password": "12345",
+      "role": "ADMIN",
+      "token": "quihflskadjhlknjsad",
+      "datecreated": "2024-10-31T23:11:18.404Z"
+    }
+  ],
+  "cursos": [
+    {
+      "id": "asdsaalkdjf",
+      "name": "Angular"
+    }
+  ]
+}
