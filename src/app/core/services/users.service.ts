@@ -1,55 +1,45 @@
 import { Injectable } from '@angular/core';
 import { User } from '../../features/dashboard/users/models';
-import { map, Observable, of } from 'rxjs';
+import { concatMap, map, Observable, of } from 'rxjs';
 import { generateRandomString } from '../../shared/utils';
-
-let DATABASE: User[] = [
-  {
-    id: 'skahgil',
-    firstName: 'jose',
-    lastName: 'israel',
-    password: '123456',
-    email: 'israel@gmail.com',
-    datecreated: new Date(),
-    token: generateRandomString(20),
-    
-  },
-];
+import { environment } from '../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersService {
-  constructor() {}
+  private baseURL = environment.apiBaseURL
+  
+  constructor(private httpClient: HttpClient) {
+    
+  }
 
   getById(id: string): Observable<User | undefined> {
-    return this.getUsers().pipe(map((users) => users.find((u) => u.id === id)));
+    return this.httpClient.get<User>(`${this.baseURL}/alumnos/${id}`)
   }
 
   getUsers(): Observable<User[]> {
-    return new Observable((observer) => {
-      setInterval(() => {
-        observer.next(DATABASE);
-        observer.complete();
-      });
-    });
+    return this.httpClient.get<User[]>(`${this.baseURL}/alumnos`)
+
   }
 
   removeUserById(id: string): Observable<User[]> {
-    DATABASE = DATABASE.filter((user) => user.id != id);
-    return of(DATABASE);
+    return this.httpClient.delete<User>(`${this.baseURL}/alumnos/${id}`).pipe(concatMap(() => this.getUsers()))
   }
 
   updateUserById(id: string, update: Partial<User>) {
-    DATABASE = DATABASE.map((user) =>
-      user.id === id ? { ...user, ...update } : user
-    );
+    return this.httpClient.patch<User>(`${this.baseURL}/alumnos/${id}`, update)
+      .pipe(concatMap(() => this.getUsers()));
+  }
 
-    return new Observable<User[]>((observer) => {
-      setInterval(() => {
-        observer.next(DATABASE);
-        observer.complete();
-      }, 1000);
-    });
+  createAlumn(data: Omit<User, 'id'>): Observable<User>{
+    return this.httpClient.post<User>(`${this.baseURL}/alumnos`, {
+      ...data, 
+      role: 'USER',
+      datecreated: new Date().toISOString(),
+      token: generateRandomString(10),
+
+    })
   }
 }

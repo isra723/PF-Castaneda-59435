@@ -35,7 +35,8 @@ import {MatChipsModule} from '@angular/material/chips';
     FullNamePipe,
     HighlightDirective,
     MatProgressBarModule,
-    MatChipsModule
+    MatChipsModule,
+    CommonModule
   ]
 })
 export class SharedModule { }

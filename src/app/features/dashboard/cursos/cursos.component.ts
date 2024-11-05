@@ -12,6 +12,7 @@ import { CursoDialogComponent } from './curso-dialog/curso-dialog.component';
   styleUrl: './cursos.component.scss'
 })
 export class CursosComponent implements OnInit{
+  isLoading = false
   displayedColumns: string[] = ['id', 'name', 'date', 'actions']
   dataSource: Course[] = []
 
@@ -39,7 +40,20 @@ export class CursosComponent implements OnInit{
   }  
 
   deleteUser(id: string){
-    this.dataSource = this.dataSource.filter((course) => course.id !== id)
+    if(confirm('Seguro?')){
+      this.isLoading = true
+      this.courseService.removeCourseById(id).subscribe({
+        next: (course) => {
+          this.dataSource = course;
+        },
+        error: (err) => {
+          this.isLoading = false;
+        },
+        complete: () => {
+          this.isLoading = false;
+        },
+      })
+    }
   }
 
   openModal(editingCourse?: Course): void{
@@ -49,14 +63,30 @@ export class CursosComponent implements OnInit{
       }
     }).afterClosed().subscribe({
       next: (result) => {
-        console.log("Recibido", this.dataSource)
         if(!!result){
           if(editingCourse){
-            this.dataSource = this.dataSource.map((course) => course.id === editingCourse.id ? {...course, ...result} : course)
+            this.handleUpdate(editingCourse.id, result)
           }else {
-            this.dataSource = [...this.dataSource, result]
+            this.courseService.createCourse(result).subscribe({
+              next: () => this.loadCourse()
+            })
           }
         }
+      }
+    })
+  }
+
+  handleUpdate(id: string, update: Course): void{
+    this.isLoading = true
+    this.courseService.updateCourseById(id, update).subscribe({
+      next: (alumns) => {
+        this.dataSource = alumns
+      },
+      error: () => {
+        this.isLoading = false
+      },
+      complete: () => {
+        this.isLoading = false
       }
     })
   }

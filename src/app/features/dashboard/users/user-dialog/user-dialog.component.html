@@ -35,9 +35,37 @@
           </mat-error>
         </mat-form-field>
       </div>
+      <div class="col-6">
+        <mat-form-field class="example-form-field w-100">
+          <mat-label>Contraseña</mat-label>
+          <input formControlName="password" matInput [type]="passwordInputType" maxlength="15" />
+          <mat-error>
+            @if(userForm.get('password')?.hasError('required')) { Este campo es
+            requerido }
+          </mat-error>
+          <button matSuffix mat-icon-button (click)="togglePasswordImputType()" type="button">
+            <mat-icon>visibility</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field class="example-form-field w-100">
+          <mat-label>Rol</mat-label>
+          <mat-select formControlName="role" [(value)]="selected">
+            <mat-option>Selecciona</mat-option>
+            <mat-option value="ADMIN">ADMIN</mat-option>
+            <mat-option value="STUDENT">STUDENT</mat-option>
+          </mat-select>
+          <mat-error>
+            @if(userForm.get('role')?.hasError('required')) { Este campo es
+            requerido }
+          </mat-error>
+        </mat-form-field>
+      </div>
     </div>
   </form>
 </div>
+
 
 <div mat-dialog-actions>
   <button mat-dialog-close mat-button>Cancelar</button>

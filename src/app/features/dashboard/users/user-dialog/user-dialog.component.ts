@@ -14,6 +14,8 @@ interface UserDialogData {
   styleUrl: './user-dialog.component.scss'
 })
 export class UserDialogComponent {
+  passwordInputType: 'password' | 'text' = 'password'
+  selected: "ADMIN" | "STUDENT" = "ADMIN"
 
 userForm: FormGroup
 
@@ -26,6 +28,8 @@ userForm: FormGroup
       firstName: [null, [Validators.required]],
       lastName: [null, [Validators.required]],
       email: [null, [Validators.required]],
+      password: [null, [Validators.required]],
+      role: [null,[Validators.required]]
     })
     this.fillDialogData()
   }
@@ -48,5 +52,13 @@ userForm: FormGroup
       })
     }
     
+  }
+
+  togglePasswordImputType(): void {
+    if (this.passwordInputType === 'password') {
+      this.passwordInputType = 'text'
+    } else {
+      this.passwordInputType = 'password'
+    }
   }
 }

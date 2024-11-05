@@ -9,12 +9,55 @@
       "role": "ADMIN",
       "token": "quihflskadjhlknjsad",
       "datecreated": "2024-10-31T23:11:18.404Z"
+    },
+    {
+      "id": "61CZ",
+      "firstName": "Alondra",
+      "lastName": "Rodriguez",
+      "email": "alondra@gmail.com",
+      "password": "12345",
+      "role": "USER",
+      "datecreated": "2024-11-04T20:59:01.143Z",
+      "token": "CehkfM2oaS"
+    },
+    {
+      "id": "OwRV",
+      "firstName": "Alfonso",
+      "lastName": "Piña",
+      "email": "alfonso@gmail.com",
+      "password": "12345",
+      "role": "USER",
+      "datecreated": "2024-11-04T21:14:10.416Z",
+      "token": "ajN7HpDduE"
     }
   ],
   "cursos": [
     {
-      "id": "asdsaalkdjf",
-      "name": "Angular"
+      "id": "oWzx",
+      "name": "JavaScript",
+      "datecreated": "2024-11-02T21:43:43.912Z",
+      "token": "FBqOr7UY3mX6GKR"
+    },
+    {
+      "id": "5Hfe",
+      "name": "Angular",
+      "datecreated": "2024-11-02T21:43:50.756Z",
+      "token": "t7aemL0JRNFWX6o"
+    },
+    {
+      "id": "M579",
+      "name": "angularrr",
+      "datecreated": "2024-11-02T21:48:33.197Z",
+      "token": "GvoKC348PY8o3r5"
+    }
+  ],
+  "clases": [
+    {
+      "id": "UfmHK",
+      "name": "Clase-01",
+      "horario": "13:00-14:00",
+      "categoryId": "angularrr",
+      "categoryid": "zkYTC"
     }
   ]
 }

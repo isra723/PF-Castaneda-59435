@@ -1,36 +1,39 @@
 import { Injectable } from "@angular/core";
 import { Clase } from "../../features/dashboard/clases/models";
 import { generateRandomString } from "../../shared/utils";
-import { Observable, of } from "rxjs";
+import { concatMap, Observable, of } from "rxjs";
+import { environment } from "../../../environments/environment";
+import { HttpClient } from "@angular/common/http";
 
-export let MY_DATABASE: Clase[] = [
-    {
-        id: generateRandomString(5),
-        name: "Clase-01",
-        horario: "17:30 - 19:30",
-        categoryId: 'angular'
-    },
-    {
-        id: generateRandomString(5),
-        name: "Clase-02",
-        horario: "16:30 - 19:30",
-        categoryId: "javascript"
-    }
-]
 
 @Injectable({providedIn: 'root'})
 export class ClasesService{
+    private baseURL = environment.apiBaseURL
+
+    constructor(private httpClient: HttpClient){
+
+    }
+
+    getById(id: string): Observable<Clase | undefined>{
+        return this.httpClient.get<Clase>(`${this.baseURL}/clases/${id}`)
+    }
+
     getClases(): Observable<Clase[]>{
-        return of([...MY_DATABASE])
+        return this.httpClient.get<Clase[]>(`${this.baseURL}/clases`)
     }
 
-    deleteById(id: string): Observable<Clase[]>{
-        MY_DATABASE = MY_DATABASE.filter((p) => p.id !== id)
-        return this.getClases()
+    removeClaseById(id: string): Observable<Clase[]>{
+        return this.httpClient.delete<Clase>(`${this.baseURL}/clases/${id}`).pipe(concatMap(() => this.getClases()))
     }
 
-    createClase(data: Omit<Clase, 'id'>): Observable<Clase[]>{
-        MY_DATABASE.push({...data, id: generateRandomString(4)})
-        return this.getClases()
+    createClase(data: Omit<Clase, 'id'>): Observable<Clase>{
+        return this.httpClient.post<Clase>(`${this.baseURL}/clases`, {
+            ...data,
+            categoryid: generateRandomString(5)
+        })
+    }
+
+    updateClaseById(id: string, update: Partial<Clase>){
+        return this.httpClient.patch<Clase>(`${this.baseURL}/clases/${id}`, update).pipe(concatMap(() => this.getClases()))
     }
 }

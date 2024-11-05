@@ -14,7 +14,7 @@ import { UsersService } from '../../../core/services/users.service';
 
 
 export class UsersComponent implements OnInit {
-
+  isLoading = false
   displayedColumns: string[] = ['id', 'name', 'email', 'date', 'actions'];
   dataSource: User[] = []
 
@@ -33,17 +33,31 @@ export class UsersComponent implements OnInit {
   loadUsers(): void {
     this.usersService.getUsers().subscribe({
       next: (users) => {
-        this.dataSource = users;
+        this.dataSource = users
       },
     })
 }
 
   goToDetail(id: string): void {
     this.router.navigate([id, 'detail'], { relativeTo: this.activatedRoute })
+
   }
 
   deleteUser(id: string) {
-    this.dataSource = this.dataSource.filter((user) => user.id !== id)
+    if (confirm('Seguro?')) {
+      this.isLoading = true;
+      this.usersService.removeUserById(id).subscribe({
+        next: (users) => {
+          this.dataSource = users;
+        },
+        error: (err) => {
+          this.isLoading = false;
+        },
+        complete: () => {
+          this.isLoading = false;
+        },
+      });
+    }
   }
 
   openModal(editingUser?: User): void {
@@ -55,11 +69,28 @@ export class UsersComponent implements OnInit {
       next: (result) => {
         if (!!result) {
           if (editingUser) {
-            this.dataSource = this.dataSource.map((user) => user.id === editingUser.id ? { ...user, ...result } : user)
+            this.handleUpdate(editingUser.id, result);
           } else {
-            this.dataSource = [...this.dataSource, result]
+            this.usersService.createAlumn(result).subscribe({
+              next: () => this.loadUsers()
+            })
           }
         }
+      }
+    })
+  }
+
+  handleUpdate(id: string, update: User): void{
+    this.isLoading = true
+    this.usersService.updateUserById(id, update).subscribe({
+      next: (alumns) => {
+        this.dataSource = alumns
+      },
+      error: () => {
+        this.isLoading = false
+      },
+      complete: () => {
+        this.isLoading = false
       }
     })
   }

@@ -9,8 +9,6 @@ export class HighlightDirective {
     this.applyStyles()
   }
 
-  
-
   applyStyles(): void {
     this.el.nativeElement.style.backgroundColor = "#89de7e"
     this.el.nativeElement.style.fontSize = "20px"

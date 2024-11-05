@@ -1,58 +1,41 @@
 import { Injectable } from "@angular/core";
 import { Course } from "../../features/dashboard/cursos/models";
 import { generateRandomString } from "../../shared/utils";
-import { map, Observable, of } from "rxjs";
-
-
-let DATABASE: Course[] = [
-    {
-        id: 'fakjshdf',
-        name: 'Angular',
-        datecreated: new Date(),
-        token: generateRandomString(20)
-    },
-    {
-        id: 'aslkdfh',
-        name: 'JavaScript',
-        datecreated: new Date(),
-        token: generateRandomString(20)
-    },
-]
+import { concatMap, Observable, of } from "rxjs";
+import { environment } from "../../../environments/environment";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
     providedIn: "root",
 })
 export class CourseService {
-    constructor(){
+    private baseURL = environment.apiBaseURL
+    constructor(private httpClient: HttpClient){
 
     }
 
     getById(id: string):Observable<Course | undefined>{
-        return this.getCourses().pipe(map((courses) => courses.find((c) => c.id === id)))
+        return this.httpClient.get<Course>(`${this.baseURL}/cursos/${id}`)
     }
 
     getCourses(): Observable <Course[]>{
-        return new Observable((observer) => {
-            setInterval(() => {
-                observer.next(DATABASE)
-                observer.complete()
-            })
-        })
+        return this.httpClient.get<Course[]>(`${this.baseURL}/cursos`)
     }
 
     removeCourseById(id: string): Observable<Course[]>{
-        DATABASE = DATABASE.filter((course) => course.id != id)
-        return of(DATABASE)
+        return this.httpClient.delete<Course>(`${this.baseURL}/cursos/${id}`).pipe(concatMap(() => this.getCourses()))
     }
 
     updateCourseById(id: String, update: Partial<Course>){
-        DATABASE = DATABASE.map((course) => course.id === id ? { ...course, ...update} : course)
+        return this.httpClient.patch<Course>(`${this.baseURL}/cursos/${id}`, update)
+        .pipe(concatMap(() => this.getCourses()))
+    }
 
-        return new Observable<Course[]>((observer) => {
-            setInterval(() => {
-                observer.next(DATABASE)
-                observer.complete()
-            })
-        })
+    createCourse(data: Omit<Course, "id">): Observable<Course>{
+       return this.httpClient.post<Course>(`${this.baseURL}/cursos`, {
+        ...data,
+        datecreated: new Date().toISOString(),
+        token: generateRandomString(15),
+       })
     }
 }

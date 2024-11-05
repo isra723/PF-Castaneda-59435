@@ -4,6 +4,7 @@ import { BehaviorSubject, map, Observable, of, throwError } from "rxjs";
 import { User } from "../../features/dashboard/users/models";
 import { Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
+import { environment } from "../../../environments/environment";
 
 
 @Injectable({ providedIn: 'root' })
@@ -11,6 +12,7 @@ export class AuthService {
 
     private _authUser$ = new BehaviorSubject<null | User>(null)
     public authUser$ = this._authUser$.asObservable()
+    private baseURL = environment.apiBaseURL
 
     constructor(private router: Router, private httpClient: HttpClient){
 
@@ -28,15 +30,14 @@ export class AuthService {
     }
 
     login(data: AuthData): Observable<User> {
-        return this.httpClient
-        .get<User[]>(
-            `http://localhost:3000/alumnos?email=${data.email}&password=${data.password}`
+        return this.httpClient.get<User[]>(
+            `${this.baseURL}/alumnos?email=${data.email}&password=${data.password}`
         ).pipe(map((alumns) =>{ 
             const alumn = this.handleAuthentication(alumns)
             if(alumn){
                 return alumn
             } else{
-                throw throwError(() => new Error("Los datos con invalidos"))
+                throw  new Error("Los datos son invalidos")
             }
         }))
     }
@@ -49,7 +50,7 @@ export class AuthService {
 
     verifyToken(): Observable<boolean>{
         return this.httpClient.get<User[]>(
-            `http://localhost:3000/alumnos?token=${localStorage.getItem('token')}`
+            `${this.baseURL}/alumnos?token=${localStorage.getItem('token')}`
         ).pipe(map((alums) => {
             const alumn = this.handleAuthentication(alums)
             return !!alumn

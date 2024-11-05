@@ -9,7 +9,7 @@
             <input formControlName="horario" type="text" matInput>
         </mat-form-field>
         <mat-form-field class="col-md-4">
-            <mat-label>Categoria</mat-label>
+            <mat-label>Curso</mat-label>
             <mat-select formControlName="categoryId">
                 <mat-option [value]="course.name" *ngFor="let course of cursos$ | async">
                     {{course.name}}
