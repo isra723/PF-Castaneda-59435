@@ -8,6 +8,7 @@ import { User } from '../users/models';
 import { Clase } from '../clases/models';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InscrpService } from '../../../core/services/inscrip.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-inscrip',
@@ -20,7 +21,7 @@ export class InscripComponent implements OnInit {
   class$: Observable<Clase[]>
   loadInscripError$: Observable<Error | null>
   dataSourse: Ins[] = []
-  bandera = false
+  authAlumn$: Observable<User | null>
 
   isLoading = false
   inscripForm: FormGroup
@@ -29,6 +30,7 @@ export class InscripComponent implements OnInit {
     private store: Store,
     private formBuilder: FormBuilder,
     private inscripService: InscrpService,
+    private authService: AuthService
   ) {
     this.inscripForm = this.formBuilder.group({
       clasId: [null, [Validators.required]],
@@ -38,6 +40,7 @@ export class InscripComponent implements OnInit {
     this.class$ = store.select(selectClassOption)
     this.alumn$ = store.select(selectAlumnOption)
     this.loadInscripError$ = store.select(slectInscripError)
+    this.authAlumn$ = this.authService.authAlumn$
   }
 
   ngOnInit(): void {
@@ -73,4 +76,5 @@ export class InscripComponent implements OnInit {
 
     }
   }
+
 }
