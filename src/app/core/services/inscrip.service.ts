@@ -11,7 +11,9 @@ export class InscrpService {
     }
 
     getInscript(): Observable<Ins[]>{
-        return this.httpClient.get<Ins[]>(`${environment.apiBaseURL}/inscrip?_embed=alumn&_embed=clas`)
+        return this.httpClient.get<Ins[]>(
+            `${environment.apiBaseURL}/inscrip?_embed=alumno&_embed=clase`//no se porque no me muestra los datos embebidos
+        )
     }
 
     createInscrip(payLoad: Omit<Ins , 'id'| 'alumno' | 'calse'>): Observable<Ins> {

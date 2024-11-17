@@ -1,0 +1,4 @@
+<mat-option [value]="alumn.id" *ngFor="let alumn of alumn$ | async"
+    [disabled]="alumn.firstName !== (authAlumn$ | async)?.firstName">
+    {{alumn.firstName}} {{alumn.lastName}}
+</mat-option>

@@ -56,7 +56,9 @@
                 <td appHighlight>{{ dato.id }}</td>
                 <td>{{ dato.clasId }}</td>
                 <td>{{ dato.alumnId }}</td>
-                <td>{{ dato.alumno?.firstName }}</td>
+                <td >
+                    {{ dato.alumno?.firstName }} 
+                </td>
                 <td>{{ dato.clase?.name }}</td>
                 <td>
                     <button [disabled]="(authAlumn$ | async)?.id != dato.alumnId && (authAlumn$ | async)?.role !== 'ADMIN'" 
@@ -68,4 +70,6 @@
             </tr>
         </tbody>
     </table>
+    <!-- <pre>{{ inscripts$ | async | json }}</pre> no me muestra los datos embebidos :(  ) -->
+    
 </div>
