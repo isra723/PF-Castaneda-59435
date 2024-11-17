@@ -2,8 +2,8 @@
     <h1>Lista de clases</h1>
 </div>
 
-<div (click)="openModal()" class="container text-center">
-    <button class="" mat-flat-button> <mat-icon>add</mat-icon> Crear clase </button>
+<div  class="container text-center">
+    <button (click)="openModal()" [disabled]="(authAlumn$ | async)?.role != 'ADMIN'" class="" mat-flat-button> <mat-icon>add</mat-icon> Crear clase </button>
 </div>
 
 <div class="m-5">
