@@ -4,6 +4,9 @@ import { CourseService } from '../../../core/services/course.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CursoDialogComponent } from './curso-dialog/curso-dialog.component';
+import { AuthService } from '../../../core/services/auth.service';
+import { Observable } from 'rxjs';
+import { User } from '../users/models';
 
 
 @Component({
@@ -15,13 +18,16 @@ export class CursosComponent implements OnInit{
   isLoading = false
   displayedColumns: string[] = ['id', 'name', 'date', 'actions']
   dataSource: Course[] = []
+  authAlumn$: Observable<User | null>
 
   constructor(
     private courseService: CourseService,
     private matDialog: MatDialog,
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private authService: AuthService,
   ){
+    this.authAlumn$ = this.authService.authAlumn$
   }
   ngOnInit(): void {
     this.loadCourse()

@@ -23,7 +23,8 @@ export class ClasesService{
     }
 
     removeClaseById(id: string): Observable<Clase[]>{
-        return this.httpClient.delete<Clase>(`${this.baseURL}/clases/${id}`).pipe(concatMap(() => this.getClases()))
+        return this.httpClient.delete<Clase>(`${this.baseURL}/clases/${id}`)
+        .pipe(concatMap(() => this.getClases()))
     }
 
     createClase(data: Omit<Clase, 'id'>): Observable<Clase>{
@@ -34,6 +35,7 @@ export class ClasesService{
     }
 
     updateClaseById(id: string, update: Partial<Clase>){
-        return this.httpClient.patch<Clase>(`${this.baseURL}/clases/${id}`, update).pipe(concatMap(() => this.getClases()))
+        return this.httpClient.patch<Clase>(`${this.baseURL}/clases/${id}`, update)
+        .pipe(concatMap(() => this.getClases()))
     }
 }

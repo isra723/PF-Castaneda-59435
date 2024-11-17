@@ -1,3 +1,17 @@
+# Author
+
+José Israel Castañeda Piña
+
+# Credentials
+
+Admin:
+email: israel@gmail.com
+password: 12345
+
+User:
+email: alondra@gmail.com
+password: 54321
+
 # PFCastaneda59435
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.7.

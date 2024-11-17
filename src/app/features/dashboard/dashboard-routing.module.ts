@@ -18,9 +18,14 @@ const routes: Routes = [
     loadChildren: () => import('./clases/clases.module').then((m) => m.ClasesModule),
   },
   {
+    path: "inscripcion",
+    loadChildren: () => import('./inscrip/inscrip.module').then((m) => m.InscripModule)
+  },
+  {
     path: '**',
     redirectTo: 'home'
   },
+ 
 ];
 
 @NgModule({

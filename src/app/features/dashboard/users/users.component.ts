@@ -4,6 +4,8 @@ import { UserDialogComponent } from './user-dialog/user-dialog.component';
 import { User } from './models';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsersService } from '../../../core/services/users.service';
+import { AuthService } from '../../../core/services/auth.service';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -17,14 +19,16 @@ export class UsersComponent implements OnInit {
   isLoading = false
   displayedColumns: string[] = ['id', 'name', 'email', 'date', 'actions'];
   dataSource: User[] = []
+  authAlumn$: Observable<User | null>
 
   constructor(
     private usersService: UsersService,
     private matDialog: MatDialog,
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private authService: AuthService
   ) {
-
+    this.authAlumn$ = this.authService.authAlumn$
   }
   ngOnInit(): void {
     this.loadUsers();

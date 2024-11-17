@@ -15,20 +15,10 @@
       "firstName": "Alondra",
       "lastName": "Rodriguez",
       "email": "alondra@gmail.com",
-      "password": "12345",
+      "password": "54321",
       "role": "USER",
       "datecreated": "2024-11-04T20:59:01.143Z",
       "token": "CehkfM2oaS"
-    },
-    {
-      "id": "OwRV",
-      "firstName": "Alfonso",
-      "lastName": "Piña",
-      "email": "alfonso@gmail.com",
-      "password": "12345",
-      "role": "USER",
-      "datecreated": "2024-11-04T21:14:10.416Z",
-      "token": "ajN7HpDduE"
     }
   ],
   "cursos": [
@@ -56,8 +46,26 @@
       "id": "UfmHK",
       "name": "Clase-01",
       "horario": "13:00-14:00",
-      "categoryId": "angularrr",
-      "categoryid": "zkYTC"
+      "categoryId": "angularrr"
+    },
+    {
+      "id": "9GtSB",
+      "name": "Clase-02",
+      "horario": "14:00-15:00",
+      "categoryId": "Angular",
+      "categoryid": "bcmgp"
+    }
+  ],
+  "inscrip": [
+    {
+      "id": "1a08",
+      "clasId": "UfmHK",
+      "alumnId": "ae0c"
+    },
+    {
+      "id": "99a4",
+      "clasId": "9GtSB",
+      "alumnId": "ae0c"
     }
   ]
 }

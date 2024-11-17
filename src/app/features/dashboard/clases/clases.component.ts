@@ -3,6 +3,9 @@ import { ClasesService } from '../../../core/services/clases.service';
 import { Clase } from './models';
 import { MatDialog } from '@angular/material/dialog';
 import { ClasesDialogComponent } from './clases-dialog/clases-dialog.component';
+import { AuthService } from '../../../core/services/auth.service';
+import { Observable } from 'rxjs';
+import { User } from '../users/models';
 
 @Component({
   selector: 'app-clases',
@@ -12,11 +15,15 @@ import { ClasesDialogComponent } from './clases-dialog/clases-dialog.component';
 export class ClasesComponent implements OnInit {
   isLoading = false
   displayedColumns: string[] = ['id', 'name', 'horario', 'categoryId', 'actions']
-  dataSourse: Clase[] = []
+  dataSource: Clase[] = []
+  authAlumn$: Observable<User | null>
 
   constructor(
     private clasesService: ClasesService,
-    private matDialog: MatDialog) {
+    private matDialog: MatDialog,
+    private authService: AuthService
+  ) {
+    this.authAlumn$ = this.authService.authAlumn$
   }
 
   ngOnInit(): void {
@@ -46,7 +53,7 @@ export class ClasesComponent implements OnInit {
   loadClase(): void {
     this.clasesService.getClases().subscribe({
       next: (clase) => {
-        this.dataSourse = clase
+        this.dataSource = clase
       },
       error: (err) => {
         console.log(err)
@@ -59,7 +66,7 @@ export class ClasesComponent implements OnInit {
       this.isLoading = true
       this.clasesService.removeClaseById(id).subscribe({
         next: (clase) => {
-          this.dataSourse = clase
+          this.dataSource = clase
         },
         error: () => {
           this.isLoading = false;
@@ -75,7 +82,7 @@ export class ClasesComponent implements OnInit {
     this.isLoading = true
     this.clasesService.updateClaseById(id, update).subscribe({
       next: (clases) => {
-        this.dataSourse = clases
+        this.dataSource = clases
       },
       error: () => {
         this.isLoading = false

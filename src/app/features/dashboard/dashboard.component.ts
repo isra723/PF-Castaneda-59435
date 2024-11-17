@@ -13,7 +13,7 @@ export class DashboardComponent {
   authUser$: Observable<User | null>
 
   constructor(private router: Router, private authService: AuthService){
-    this.authUser$ = this.authService.authUser$
+    this.authUser$ = this.authService.authAlumn$
   }
   
   logOut(): void {

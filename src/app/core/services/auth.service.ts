@@ -1,31 +1,31 @@
 import { Injectable } from "@angular/core";
 import { AuthData } from "../../features/auth/models";
-import { BehaviorSubject, map, Observable, of, throwError } from "rxjs";
+import { map, Observable } from "rxjs";
 import { User } from "../../features/dashboard/users/models";
 import { Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "../../../environments/environment";
+import { Store } from "@ngrx/store";
+import { AuthActions } from "../../store/actions/auth.actions";
+import { selectAuthAlumn } from "../../store/selector/auth.selector";
 
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-
-    private _authUser$ = new BehaviorSubject<null | User>(null)
-    public authUser$ = this._authUser$.asObservable()
+    public authAlumn$: Observable<User | null>
     private baseURL = environment.apiBaseURL
 
-    constructor(private router: Router, private httpClient: HttpClient){
-
+    constructor(private router: Router, private httpClient: HttpClient, private store: Store){
+        this.authAlumn$ = this.store.select(selectAuthAlumn)
     }
 
     private handleAuthentication(alumns: User[]): User | null{
         if(!!alumns[0]){
-            this._authUser$.next(alumns[0])
+            this.store.dispatch(AuthActions.setAuthAlumn( {alumn: alumns[0]} ))
             localStorage.setItem("token", alumns[0].token)
             return alumns[0]
         }else{
             return null
-            
         }
     }
 
@@ -43,7 +43,7 @@ export class AuthService {
     }
 
     logOut(): void {
-        this._authUser$.next(null)
+        this.store.dispatch(AuthActions.unsetAuthAlumn())
         this.router.navigate(['auth', 'login'])
         localStorage.removeItem('token')
     }

@@ -2,8 +2,8 @@
   <h1>Lista de alumnos</h1>
 </div>
 
-<div (click)="openModal()" class="container text-center">
-  <button class="" mat-flat-button> <mat-icon>add</mat-icon> Crear alumno </button>
+<div  class="container text-center">
+  <button (click)="openModal()" [disabled]="(authAlumn$ | async)?.role != 'ADMIN'" class="" mat-flat-button> <mat-icon>add</mat-icon> Crear alumno </button>
 </div>
 <div class="m-5">
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
@@ -33,10 +33,10 @@
         <button (click)="goToDetail(user.id)" mat-icon-button>
           <mat-icon>search</mat-icon>
         </button>
-        <button (click)="deleteUser(user.id)" mat-icon-button>
+        <button (click)="openModal()" [disabled]="(authAlumn$ | async)?.role != 'ADMIN'" (click)="deleteUser(user.id)" mat-icon-button>
           <mat-icon>delete</mat-icon>
         </button>
-        <button (click)="openModal(user)" mat-icon-button>
+        <button (click)="openModal()" [disabled]="(authAlumn$ | async)?.role != 'ADMIN'" (click)="openModal(user)" mat-icon-button>
           <mat-icon>edit_square</mat-icon>
         </button>
       </td>
